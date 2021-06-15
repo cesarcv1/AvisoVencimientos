@@ -1,0 +1,70 @@
+CREATE TABLE Continentes (
+	idContinente INTEGER PRIMARY KEY AUTOINCREMENT,
+	descripcion VARCHAR (25) 
+);
+
+CREATE TABLE Contrapartes (
+	idContraparte INTEGER PRIMARY KEY AUTOINCREMENT,
+	descripcion VARCHAR (50) 
+);
+
+CREATE TABLE Empresas (
+	idEmpresa INTEGER PRIMARY KEY AUTOINCREMENT,
+	Descripcion VARCHAR (50) 
+);
+
+CREATE TABLE Paises (
+	idPais INTEGER PRIMARY KEY,
+	descripcion VARCHAR (25),
+	continente INTEGER REFERENCES Continentes (idContinente) 
+);
+
+CREATE TABLE Territorios (
+	idTerritorio INTEGER PRIMARY KEY AUTOINCREMENT,
+	descripcion VARCHAR (50) 
+);
+
+CREATE TABLE Tipocontrato (
+	idTipo INTEGER PRIMARY KEY ASC ON CONFLICT ROLLBACK AUTOINCREMENT,
+	descripcion VARCHAR (25) 
+);
+
+CREATE TABLE Tipodocumento (
+	idTipo INTEGER PRIMARY KEY ASC ON CONFLICT ROLLBACK AUTOINCREMENT,
+	descripcion VARCHAR (25) 
+);
+
+CREATE TABLE Usuarios (
+	idUsuario INTEGER PRIMARY KEY ASC ON CONFLICT ROLLBACK AUTOINCREMENT,
+	descripcion VARCHAR (25),
+	password VARCHAR (10) NOT NULL
+);
+
+CREATE TABLE Fichas (
+	id INTEGER PRIMARY KEY ASC ON CONFLICT ROLLBACK AUTOINCREMENT,
+	idEmpresa INT REFERENCES Empresas (idEmpresa),
+	idTipo INT REFERENCES Tipodocumento (idTipo),
+	idContraparte INT REFERENCES Contrapartes (idContraparte),
+	idTerritorio INT REFERENCES Paises (idPais),
+	idPais INT REFERENCES Paises (idPais),
+	fechafirma DATE,
+	fechainicio DATE,
+	fechavencimiento DATE,
+	Indefinido BOOLEAN,
+	Prorrogable BOOLEAN,
+	Vigente BOOLEAN,
+	PreavisoCancelacion TEXT (20),
+	NotaPreaviso VARCHAR (500),
+	Otros VARCHAR (500),
+	Link VARCHAR (255),
+	Dudas VARCHAR (500),
+	fechasistema DATE,
+	fechamodificacion DATE,
+	periodoprorroga TEXT,
+	revisado BOOLEAN,
+	fecharevision DATE,
+	Asunto VARCHAR (100),
+	FechaAvisoVencimiento DATE,
+	FechaAvisoProrroga DATE
+);
+
